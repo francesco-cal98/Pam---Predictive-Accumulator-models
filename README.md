@@ -1,13 +1,16 @@
-# HGF
-Hierarchical Gaussian Filter (HGF) Toolbox
+# Pyton-PAM 
 
 ---
 
-A python implimentation of the HGF model created by Christoph Mathys, 
-current Python implimentation was fully recoded for Python by Jorie van Haren <jjg.vanharen@maastrichtuniversity.nl>.
-Demo notebooks are made to give intuition of how to use the package.
+A python implementation of the PAM framework. The structure and methodologies are inspired from the HGF toolbox, open source code available as part of the TAPAS software collection. The python implementation of the HGF toolbcx is forked from https://github.com/mesoScopic-Computational-AuditioN-lab/HGF by Jorie van Haren jjg.vanharen@maastrichtuniversity.nl
 
-Original refference:
+The repository is structured in the following way: 
+
+- HGF folder: contains the scripts relative to the HGF implementation.
+- PAM: contains the scripts relative to the PAM framework
+- Demos: contains three notebooks that serves as an example of usage. 
+
+Original reference:
 
 Frässle, S., et al. (2021). TAPAS: An Open-Source Software Package for
 Translational Neuromodeling and Computational Psychiatry. Frontiers in
@@ -36,8 +39,15 @@ Psychiatry, 12:680811. https://doi.org/10.3389/fpsyt.2021.680811
 ```
 cd /path/to/HGF
 ```
-3. Install HGF:
+3. Create a Virtual Environment
 ```
-python setup.py install
+python<version> -m venv <virtual-environment-name>
 ```
-4. Once the installation is complete, take a look at the demo notebook provided in `HGF Demo.ipynb`
+4. Activate Virtual Environment
+```
+.venv\Scripts\activate
+```
+5. Install dependencies:
+```
+pip install -r requirments.txt
+```

@@ -14,6 +14,12 @@ def ddm_hgf(r, infStates, ptrans):
 
     Returns:
     tuple: log-probabilities (logp), predictions (yhat), residuals (res).
+
+    The structure and methodologies are inspired from the HGF toolbox, open source code available as part of the TAPAS
+    software collection: Frässle, S., et al. (2021). TAPAS: An Open-Source Software Package 
+    for Translational Neuromodeling and Computational Psychiatry. Frontiers in Psychiatry, 12:680811. 
+    https://www.translationalneuromodeling.org/tapas
+
     """
     # Transform parameters to their native space
     a_a = np.exp(ptrans[0])

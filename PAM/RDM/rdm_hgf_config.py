@@ -1,6 +1,27 @@
 import numpy as np
 
 def rdm_hgf_config():
+
+    '''
+    Contains the configuration for the Racing Diffusion Model according to:
+    Tillman, G., Van Zandt, T., & Logan, G. D. (2020). Sequential sampling models without random between-trial variability: the racing diffusion model of speeded decision making. 
+    Psychonomic Bulletin & Review, 27(5), 911–936
+    
+    This configuration script defines the priors for model parameters and initial values for a
+    Wiener Diffusion Model. All priors are Gaussian, specified by their mean and variance (NOT
+    standard deviation) in the space where they are estimated.
+
+    The default values set here have a mean of 0 and a standard deviation of 4, though these can
+    be customized for each parameter as required.
+
+    The structure and methodologies are inspired from the HGF toolbox, open source code available as part of the TAPAS
+    software collection: Frässle, S., et al. (2021). TAPAS: An Open-Source Software Package 
+    for Translational Neuromodeling and Computational Psychiatry. Frontiers in Psychiatry, 12:680811. 
+    https://www.translationalneuromodeling.org/tapas
+
+
+    '''
+
     # Config structure as a dictionary
     c = {}
     

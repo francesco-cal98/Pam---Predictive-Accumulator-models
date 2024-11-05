@@ -3,23 +3,21 @@ import numpy as np
 
 def lnr_hgf(r, infStates, ptrans):
     """
-    Calculates the log-probability of response speed y (in units of ms^-1).
+    Calculates the log-probability of responses.
     
     Parameters:
-    r : dict
-        Dictionary containing responses and irregular trials.
-    infStates : np.ndarray
-        Array that contains the parameters of the HGF.
-    ptrans : np.ndarray
-        Array that contains the parameters for the response model.
-    
+    r (dict): Contains irregular trials ('irr'), responses ('y'), and trial information ('u').
+    infStates (np.ndarray): Inferred states array.
+    ptrans (np.ndarray): Parameter transformations.
+
     Returns:
-    logp : np.ndarray
-        Log-probabilities.
-    yhat : np.ndarray
-        Not used in this implementation.
-    res : np.ndarray
-        Not used in this implementation.
+    tuple: log-probabilities (logp), predictions (yhat), residuals (res).
+
+    The structure and methodologies are inspired from the HGF toolbox, open source code available as part of the TAPAS
+    software collection: Frässle, S., et al. (2021). TAPAS: An Open-Source Software Package 
+    for Translational Neuromodeling and Computational Psychiatry. Frontiers in Psychiatry, 12:680811. 
+    https://www.translationalneuromodeling.org/tapas
+<
     """
     
     # Transform parameters to their native space

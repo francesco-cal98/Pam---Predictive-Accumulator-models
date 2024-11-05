@@ -1,5 +1,25 @@
 import numpy as np
 
+'''
+Configuration for First Passage Time for Wiener Diffusion Model (DDM)
+Based on: Gondan, Blurton, and Kesselmeier (2014)
+https://doi.org/10.1016/j.jmp.2014.05.002
+
+
+This configuration script defines the priors for model parameters and initial values for a
+Wiener Diffusion Model. All priors are Gaussian, specified by their mean and variance (NOT
+standard deviation) in the space where they are estimated.
+
+The default values set here have a mean of 0 and a standard deviation of 4, though these can
+be customized for each parameter as required.
+
+The structure and methodologies are inspired from the HGF toolbox, open source code available as part of the TAPAS
+software collection: Frässle, S., et al. (2021). TAPAS: An Open-Source Software Package 
+for Translational Neuromodeling and Computational Psychiatry. Frontiers in Psychiatry, 12:680811. 
+https://www.translationalneuromodeling.org/tapas
+
+'''
+
 def ddm_hgf_config():
     # Config structure as a dictionary
     c = {}

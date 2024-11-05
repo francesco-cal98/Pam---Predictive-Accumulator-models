@@ -1,7 +1,19 @@
 import numpy as np
 
 def lnr_hgf_transp(r, ptrans):
-    """transform parameters to native space"""
+    """
+    Transform parameters to their native space for the Drift Diffusion Model (DDM)
+
+    The structure and methodologies are inspired from the HGF toolbox, open source code available as part of the TAPAS
+    software collection: Frässle, S., et al. (2021). TAPAS: An Open-Source Software Package 
+    for Translational Neuromodeling and Computational Psychiatry. Frontiers in Psychiatry, 12:680811. 
+    https://www.translationalneuromodeling.org/tapas
+
+
+    Parameters:
+        - r (dict): contains the responses
+        - ptrans (np.ndarray): Array that contains the parameters 
+    """
     # initialize nan array
     pvec = np.empty(len(ptrans))
     pvec[:] = np.nan
