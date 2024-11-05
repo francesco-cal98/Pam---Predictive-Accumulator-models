@@ -46,7 +46,9 @@ def hgf_binary(r, p, trans=False):
     mu[0,0] = _sgm(p_dict['mu_0'][0], 1)
     mu[0,1:] = p_dict['mu_0'][1:]
     pi[0,0] = np.inf
-    pi[0,1:] = p_dict['sa_0'][1:]**-1   # silence warning, inf resulst for sim model is fine
+    # changed to allow exponentiation of list
+    pi[0, 1:] = np.reciprocal(np.array(p_dict['sa_0'][1:]))
+
     
     # represnetation update loop!
     for trial in range(1, n):

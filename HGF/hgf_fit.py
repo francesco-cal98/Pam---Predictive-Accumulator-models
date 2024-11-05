@@ -10,11 +10,23 @@ import numpy as np
 import sys
 import statsmodels.api as sm
 from scipy import optimize
+import os 
+import re
+
 
 # load config files and hgf update functions
 from HGF.hgf_config import *
 from HGF.hgf_pres import *
 from HGF.hgf import *
+parent_dir = os.path.abspath(os.path.join(os.getcwd(), '..'))  # Adjust if needed
+
+# Add it to the Python path
+sys.path.append(parent_dir)
+
+from PAM.LNR import lnr_hgf,lnr_hgf_config,lnr_hgf_transp
+from PAM.RDM import rdm_hgf,rdm_hgf_config,rdm_hgf_transp
+from PAM.DDM import ddm_hgf,ddm_hgf_config,ddm_hgf_transp
+
 
 # load extra (non exclusive) helper function
 from HGF.hgf import _unpack_para
@@ -60,8 +72,12 @@ def fitModel(responses, inputs,
     # override with our own settings
     if overwrite_opt != False:
         for item in ['c_prc', 'c_obs', 'c_opt']:
-            if item not in overwrite_opt: overwrite_opt[item] = {}
+            if item not in overwrite_opt: 
+                overwrite_opt[item] = {}
             r[item] = {**r[item], **overwrite_opt[item]}
+            r[item] = align_priors(r[item])
+    
+  
 
     # get functions / models to use from config settings 
     r['c_prc'].update({'prc_fun' : _storedfunc(r['c_prc']['prc_fun']),
@@ -126,7 +142,6 @@ def fitModel(responses, inputs,
 
 
 ## Helper functions
-
 def _storedfunc(a):
     """inside function, not to be called from outside
     looks for function names (e.g. within a dict from settings
@@ -138,12 +153,18 @@ def _storedfunc(a):
                 'hgf'                   : hgf,
                 'ehgf'                  : ehgf,
                 'hgf_transp'            : hgf_transp,
+                'lnr_hgf'               : lnr_hgf.lnr_hgf,
+                'lnr_hgf_transp'        : lnr_hgf_transp.lnr_hgf_transp,
+                'rdm_hgf'               : rdm_hgf.RDM_hgf,
+                'rdm_hgf_transp'        : rdm_hgf_transp.RDM_hgf_transp,
+                'ddm_hgf'               : ddm_hgf.ddm_hgf,
+                'ddm_hgf_transp'        : ddm_hgf_transp.ddm_hgf_transp,
                 'unitsq_sqm_transp'     : unitsq_sqm_transp,
                 'bayes_optimal_binary'  : bayes_optimal_binary,
                 'bayes_optimal'         : bayes_optimal,
                 'gaussian_obs'          : gaussian_obs,
                 'unitsq_sgm'            : unitsq_sgm,
-                'optimize.minimize'     : optimize.minimize}
+                'optimize.minimize'     : optimize.minimize,}
     return(funcdict[a])
 
 def _dataPrep(responses, inputs):
@@ -335,3 +356,43 @@ def _correlation_from_covariance(covariance):
 def _check_symmetric(a, tol=1e-8):
     """check if matrix is symatrical"""
     return(np.all(np.abs(a-a.T) < tol))
+
+
+
+def align_priors(c):
+    """
+    Aligns c['priormus'] and c['priorsas'] with the contents of the explicit prior definitions.
+
+    Args:
+    c (dict): Configuration dictionary containing prior parameters.
+
+    Returns:
+    dict: The updated configuration dictionary with aligned 'priormus' and 'priorsas' lists.
+    """
+    # Initialize new prior mean and variance lists
+    priormus = []
+    priorsas = []
+
+    # Loop over fields
+    for key, value in c.items():
+        if re.search(r'mu$', key):  # Check if key ends in 'mu'
+            if isinstance(value, np.ndarray):
+                for array in value:
+                    # Extend the priormus list with the contents of each array
+                    priormus.extend(array.flatten().tolist())  # Flatten and convert to list
+            else:
+                priormus.append(value)  # Append single value directly
+        elif re.search(r'sa$', key):  # Check if key ends in 'sa'
+            if isinstance(value, np.ndarray):
+                for array in value:
+                    # Extend the priorsas list with the contents of each array
+                    priorsas.extend(array.flatten().tolist())  # Flatten and convert to list
+            else:
+                priorsas.append(value)  # Append single value directly
+
+    # Replace old vectors with newly aligned ones
+    c['priormus'] = np.array(priormus)  # Convert to numpy array
+    c['priorsas'] = np.array(priorsas)  # Convert to numpy array
+
+    return c
+
