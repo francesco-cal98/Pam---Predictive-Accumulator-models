@@ -37,7 +37,7 @@ Psychiatry, 12:680811. https://doi.org/10.3389/fpsyt.2021.680811
 1. Clone the latest release and unzip it.
 2. Change directory in your command line:
 ```
-cd /path/to/HGF
+cd /path/to/PAM
 ```
 3. Create a Virtual Environment
 ```
