@@ -2,7 +2,7 @@
 
 ---
 
-A Python implementation of the PAM framework. The structure and methodologies are inspired from the HGF toolbox, open source code available as part of the TAPAS software collection. The Python implementation of the HGF toolbox is forked from https://github.com/mesoScopic-Computational-AuditioN-lab/HGF by Jorie van Haren jjg.vanharen@maastrichtuniversity.nl
+A Python implementation of the PAM framework (for reference: https://arxiv.org/abs/2411.13203). The structure and methodologies are inspired from the HGF toolbox, open source code available as part of the TAPAS software collection. The Python implementation of the HGF toolbox is forked from https://github.com/mesoScopic-Computational-AuditioN-lab/HGF by Jorie van Haren jjg.vanharen@maastrichtuniversity.nl
 
 The repository is structured in the following way: 
 
